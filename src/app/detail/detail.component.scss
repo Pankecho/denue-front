@@ -1,0 +1,16 @@
+table{
+  width: auto !important;
+}
+
+th, td {
+  overflow: hidden;
+  width: auto;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+mat-cell,
+.mat-cell,
+mat-header-cell, .mat-header-cell {
+  padding: 0.75rem !important;
+}

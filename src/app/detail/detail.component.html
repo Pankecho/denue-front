@@ -1,0 +1,113 @@
+<mat-toolbar>
+  <div class="container">
+    <a [routerLink]="'/index'">Inicio</a>
+  </div>
+</mat-toolbar>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 style="padding-top: 3rem;">{{ actual.nom_estab }}</h1>
+    </div>
+    <div class="col-md-12">
+      <h4 style="padding-top: 1rem;">{{ actual.razon_social }}</h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+    </div>
+    <div class="col-md-2">
+      <button class="full-width" mat-button mat-raised-button color="primary" (click)="editar()">Editar informacion</button>
+    </div>
+    <div class="col-md-2">
+      <button class="full-width" mat-button mat-stroked-button color="primary" (click)="descargarCSV()">Descargar CSV</button>
+    </div>
+  </div>
+
+  <div class="row" style="padding-top: 1rem;">
+    <div class="col-md-12">
+      <div class="mat-elevation-z4" *ngIf="!(actual.ubicaciones.length === 0)" style="overflow-x: scroll;">
+        <table mat-table [dataSource]="actual.ubicaciones">
+          <ng-container matColumnDef="tipo_vial">
+            <th mat-header-cell *matHeaderCellDef> Tipo de vialidad </th>
+            <td mat-cell *matCellDef="let element"> {{ element.tipo_vial }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nom_vial">
+            <th mat-header-cell *matHeaderCellDef> Nombre de vialidad </th>
+            <td mat-cell *matCellDef="let element"> {{ element.nom_vial }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="numero_ext">
+            <th mat-header-cell *matHeaderCellDef> Numero exterior </th>
+            <td mat-cell *matCellDef="let element"> {{ element.numero_ext }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="letra_ext">
+            <th mat-header-cell *matHeaderCellDef> Letra exterior </th>
+            <td mat-cell *matCellDef="let element"> {{ element.letra_ext }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nom_CenCom">
+            <th mat-header-cell *matHeaderCellDef> Nombre de centro comercial </th>
+            <td mat-cell *matCellDef="let element"> {{ element.nom_CenCom }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="num_local">
+            <th mat-header-cell *matHeaderCellDef> Numero de local </th>
+            <td mat-cell *matCellDef="let element"> {{ element.num_local }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="cod_postal">
+            <th mat-header-cell *matHeaderCellDef> Codigo postal </th>
+            <td mat-cell *matCellDef="let element"> {{ element.cod_postal }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="entidad">
+            <th mat-header-cell *matHeaderCellDef> Entidad </th>
+            <td mat-cell *matCellDef="let element"> {{ element.entidad }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="municipio">
+            <th mat-header-cell *matHeaderCellDef> Municipio </th>
+            <td mat-cell *matCellDef="let element"> {{ element.municipio }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="localidad">
+            <th mat-header-cell *matHeaderCellDef> Localidad </th>
+            <td mat-cell *matCellDef="let element"> {{ element.localidad }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="latitud">
+            <th mat-header-cell *matHeaderCellDef> Latitud </th>
+            <td mat-cell *matCellDef="let element"> {{ element.latitud }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="longitud">
+            <th mat-header-cell *matHeaderCellDef> Longitud </th>
+            <td mat-cell *matCellDef="let element"> {{ element.longitud }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="acciones" class="accion">
+            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-button mat-icon-button matTooltip="Editar ubicacion" type="button" (click)="editarUbicacion(row)">
+                <mat-icon class="edit">edit</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+          <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+        </table>
+      </div>
+      <div class="mat-elevation-z4" *ngIf="actual.ubicaciones.length === 0">
+        <mat-card>
+          <mat-card-content>
+            No hay datos
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

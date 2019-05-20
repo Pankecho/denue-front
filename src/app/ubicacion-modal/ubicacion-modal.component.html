@@ -1,0 +1,80 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 mat-dialog-title>{{  editar ? 'Editar' : 'Nuevo' }}</h1>
+    </div>
+  </div>
+  <form [formGroup]="formulario">
+    <div class="row" mat-dialog-content>
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput [(ngModel)]="actual.tipo_vial" placeholder="Tipo de vialidad" formControlName="tipo_vial">
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput [(ngModel)]="actual.nom_vial" placeholder="Nombre de vialidad" formControlName="nom_vial" required>
+          <mat-error
+            *ngIf="formulario.controls['nom_vial'].errors && formulario.controls['nom_vial'].errors.required">
+            Este campo es requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput [(ngModel)]="actual.numero_ext" placeholder="Número exterior" formControlName="num_ext">
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput [(ngModel)]="actual.letra_ext" placeholder="Letra exterior" formControlName="letra_ext">
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput [(ngModel)]="actual.nom_CenCom" placeholder="Nombre de Centro Comercial" formControlName="nom_cen_com">
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput [(ngModel)]="actual.num_local" placeholder="Número de local" formControlName="num_local">
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput [(ngModel)]="actual.cod_postal" placeholder="Codigo Postal" formControlName="codigo_postal" required>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput [(ngModel)]="actual.entidad" placeholder="Entidad" formControlName="entidad" required>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput [(ngModel)]="actual.municipio" placeholder="Nombre del municipio" formControlName="municipio" required>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput [(ngModel)]="actual.localidad" placeholder="Nombre de localidad" formControlName="localidad" required>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput [(ngModel)]="actual.latitud" placeholder="Latitud" type="number" formControlName="latitud" required>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput [(ngModel)]="actual.longitud" placeholder="Longitud" type="number" formControlName="longitud" required>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row" mat-dialog-actions>
+      <div class="col-md-4">
+        <button mat-button mat-raised-button color="primary" (click)="guardar()" [disabled]="formulario.invalid">Guardar</button>
+      </div>
+    </div>
+  </form>
+</div>
