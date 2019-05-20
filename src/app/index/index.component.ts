@@ -25,6 +25,10 @@ export class IndexComponent implements OnInit {
 
   firstTime = true;
 
+  canUpdate = false;
+
+  canDelete = false;
+
   @ViewChild('paginator') paginator: MatPaginator;
 
   constructor(private service: ApiServiceService,
@@ -32,14 +36,25 @@ export class IndexComponent implements OnInit {
               private dialogEmpresa: MatDialog) { }
 
   ngOnInit() {
-    this.reloadData();
+    const current = localStorage.getItem('user');
+    if (current) {
+      if (current === 'adm') {
+        this.canUpdate = true;
+        this.canDelete = true;
+      } else if (current === 'edit') {
+        this.canUpdate = true;
+      }
+      this.reloadData();
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   reloadData() {
     this.service.getEmpresas(this.busquedaQuery, this.offset).subscribe(data => {
       this.datos = new MatTableDataSource<Empresa>(data);
+      this.total = this.service.TOTAL;
       if (this.firstTime) {
-        this.total = this.service.TOTAL;
         this.datos.paginator = this.paginator;
         this.firstTime = false;
       }
@@ -100,5 +115,10 @@ export class IndexComponent implements OnInit {
         });
       }
     });
+  }
+
+  logout() {
+    localStorage.setItem('user', null);
+    this.router.navigate(['/login']);
   }
 }

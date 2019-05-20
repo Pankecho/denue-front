@@ -20,15 +20,26 @@ export class DetailComponent implements OnInit {
 
   public columnas = ['tipo_vial', 'nom_vial', 'numero_ext', 'letra_ext', 'nom_CenCom', 'num_local', 'cod_postal', 'entidad', 'municipio', 'localidad', 'latitud', 'longitud', 'acciones'];
 
+  canUpdate = false;
+
   constructor(private dialog: MatDialog,
               private route: ActivatedRoute,
-              private service: ApiServiceService) {
+              private service: ApiServiceService,
+              private router: Router) {
     this.id = this.route.snapshot.paramMap.get('id');
     this.actual.ubicaciones = [];
   }
 
   ngOnInit() {
-    this.reloadData();
+    const current = localStorage.getItem('user');
+    if (current) {
+      if (current === 'adm' || current === 'edit' ) {
+        this.canUpdate = true;
+      }
+      this.reloadData();
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   reloadData() {
@@ -71,8 +82,8 @@ export class DetailComponent implements OnInit {
     });
   }
 
-  eliminarUbicacion(row) {
-
+  logout() {
+    localStorage.setItem('user', null);
+    this.router.navigate(['/login']);
   }
-
 }

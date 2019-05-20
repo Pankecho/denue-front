@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Empresa, Respuesta, Ubicacion} from '../models/general';
+import {Empresa, Respuesta, Ubicacion, Usuario} from '../models/general';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
@@ -75,6 +75,15 @@ export class ApiServiceService {
 
   updateUbicacion(ubicacion: Ubicacion): Observable<Respuesta> {
     return this.http.put(`${this.URL_HOST}/${this.URL_UBICACION}/${ubicacion.ID_empresa}`, ubicacion).pipe(
+      map(res => {
+        const d = res as Respuesta;
+        return d;
+      })
+    );
+  }
+
+  login(usuario: Usuario): Observable<Respuesta> {
+    return this.http.post(`${this.URL_HOST}/login`, usuario).pipe(
       map(res => {
         const d = res as Respuesta;
         return d;
