@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import {MatDialog, MatPaginator, MatTableDataSource} from '@angular/material';
 import {EmpresaModalComponent} from '../empresa-modal/empresa-modal.component';
+import {SelectionModel} from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-index',
@@ -13,9 +14,13 @@ import {EmpresaModalComponent} from '../empresa-modal/empresa-modal.component';
 })
 export class IndexComponent implements OnInit {
 
-  columnas = ['nom_estab', 'razon_social', 'acciones'];
+  columnas = ['select', 'nom_estab', 'razon_social', 'municipio', 'acciones'];
 
   public datos: MatTableDataSource<Empresa>;
+
+  data: Empresa[] = [];
+
+  selection = new SelectionModel<Empresa>(true, []);
 
   busquedaQuery = '';
 
@@ -50,8 +55,23 @@ export class IndexComponent implements OnInit {
     }
   }
 
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.data.forEach(row => this.selection.select(row));
+  }
+
   reloadData() {
     this.service.getEmpresas(this.busquedaQuery, this.offset).subscribe(data => {
+      this.data = data;
       this.datos = new MatTableDataSource<Empresa>(data);
       this.total = this.service.TOTAL;
       if (this.firstTime) {
@@ -114,6 +134,21 @@ export class IndexComponent implements OnInit {
           Swal.fire('Error', error.error.Data.sqlMessage, 'error');
         });
       }
+    });
+  }
+
+  borrar() {
+    const ids = this.selection.selected.map(i => {
+      return i.ID_empresa;
+    });
+    const ob = { ids: ids };
+    this.service.eliminarEmpresas(ob).subscribe(result => {
+      this.selection.clear();
+      Swal.fire('Exito', 'Empresas eliminadas', 'success');
+      this.reloadData();
+
+    }, error => {
+      Swal.fire('Error', error.error.Data.sqlMessage, 'error');
     });
   }
 

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   MatButtonModule,
-  MatCardModule, MatDialogModule,
+  MatCardModule, MatCheckboxModule, MatDialogModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
@@ -22,7 +22,8 @@ import {
     MatInputModule,
     MatPaginatorModule,
     MatDialogModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatCheckboxModule
   ],
   exports: [
     MatButtonModule,
@@ -33,7 +34,8 @@ import {
     MatInputModule,
     MatPaginatorModule,
     MatDialogModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatCheckboxModule
   ]
 })
 export class MaterialModule { }

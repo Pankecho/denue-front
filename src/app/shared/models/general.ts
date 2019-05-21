@@ -7,6 +7,7 @@ export class Empresa {
   ID_empresa: number;
   nom_estab: string;
   razon_social: string;
+  municipio: string;
   ubicaciones: Ubicacion[];
 }
 

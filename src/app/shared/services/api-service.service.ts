@@ -64,6 +64,15 @@ export class ApiServiceService {
     );
   }
 
+  eliminarEmpresas(ids): Observable<Respuesta> {
+    return this.http.post(`${this.URL_HOST}/${this.URL_EMPRESA}/delete`, ids).pipe(
+      map(res => {
+        const d = res as Respuesta;
+        return d;
+      })
+    );
+  }
+
   getCSV(id): Observable<Respuesta> {
     return this.http.get(`${this.URL_HOST}/${this.URL_EMPRESA}/${id}/csv`).pipe(
       map(res => {
