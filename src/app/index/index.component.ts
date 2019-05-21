@@ -152,6 +152,13 @@ export class IndexComponent implements OnInit {
     });
   }
 
+  descargarCSV() {
+    const ids = this.selection.selected.map(i => {
+      return i.ID_empresa;
+    }).join(',');
+    window.location.href = `${this.service.URL_HOST}/${this.service.URL_EMPRESA}/csv?ids=${ids}`;
+  }
+
   logout() {
     localStorage.setItem('user', null);
     this.router.navigate(['/login']);

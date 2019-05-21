@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('user', this.usuario.rol);
       this.router.navigate(['/index']);
     }, error => {
+      console.log(error);
       Swal.fire('Error', 'Usuario o contraseña incorrectos', 'error');
     });
   }

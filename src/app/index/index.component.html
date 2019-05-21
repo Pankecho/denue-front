@@ -25,6 +25,7 @@
     </div>
     <div class="col-md-2">
       <button class="full-width" mat-button mat-raised-button color="primary" (click)="buscar()">Buscar</button>
+      <button style="margin-top: 0.5rem;" class="full-width" mat-button mat-stroked-button-button color="primary" (click)="descargarCSV()" *ngIf="!selection.isEmpty()">Descargar CSV</button>
       <button style="margin-top: 0.5rem;" class="full-width" mat-button mat-stroked-button color="warn" (click)="borrar()" *ngIf="!selection.isEmpty()">Borrar seleccionados</button>
     </div>
   </div>
